@@ -48,10 +48,33 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("贪吃蛇游戏")
 clock = pygame.time.Clock()
 
-# 字体
-font_large = pygame.font.SysFont(None, 72)
-font_medium = pygame.font.SysFont(None, 48)
-font_small = pygame.font.SysFont(None, 36)
+# 字体 - 使用系统字体并确保字体可用
+try:
+    # 尝试加载中文字体
+    font_large = pygame.font.Font("simhei.ttf", 72)  # 黑体
+except:
+    try:
+        # 尝试其他中文字体
+        font_large = pygame.font.Font("simsun.ttc", 72)  # 宋体
+    except:
+        # 使用默认字体（可能不支持中文）
+        font_large = pygame.font.SysFont(None, 72)
+
+try:
+    font_medium = pygame.font.Font("simhei.ttf", 48)
+except:
+    try:
+        font_medium = pygame.font.Font("simsun.ttc", 48)
+    except:
+        font_medium = pygame.font.SysFont(None, 48)
+
+try:
+    font_small = pygame.font.Font("simhei.ttf", 36)
+except:
+    try:
+        font_small = pygame.font.Font("simsun.ttc", 36)
+    except:
+        font_small = pygame.font.SysFont(None, 36)
 
 class Snake:
     def __init__(self):
@@ -164,6 +187,7 @@ class Button:
         pygame.draw.rect(surface, color, self.rect, border_radius=10)
         pygame.draw.rect(surface, (40, 90, 40), self.rect, 3, border_radius=10)
         
+        # 确保文本渲染使用正确的字体
         text_surf = font_small.render(self.text, True, TEXT_COLOR)
         text_rect = text_surf.get_rect(center=self.rect.center)
         surface.blit(text_surf, text_rect)
