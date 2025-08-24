@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "us-weather-assistant": {
+      "command": "python",
+      "args": [
+        "weather_server/weather.py"
+      ],
+      "cwd": "us-weather-assistant",
+      "env": {
+        "OPENWEATHER_API_KEY": "your_openweather_api_key_here"
+      }
+    }
+  }
+}
